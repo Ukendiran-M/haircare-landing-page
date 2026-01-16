@@ -11,16 +11,24 @@ cloudflared-windows-amd64.exe
 *.bat
 *.ps1
 
-# Other HTML files (keeping only complete_landing_page_backup.html)
+# Other HTML files (keeping only essential ones)
 HIgh-Conversion Landing Page.html
 complete_landing_page.html
 navbar.html
 navbar.css
-terms-conditions.html
-privacy-policy.html
+hero_standalone.html
+trust_standalone.html
+services_standalone.html
+testimonials_standalone.html
+location_standalone.html
+footer_standalone.html
+navbar_standalone.html
 
 # Python scripts
 *.py
+
+# CSS files (not needed)
+enhanced-styles.css
 
 # Temporary files
 .DS_Store
@@ -29,3 +37,5 @@ Thumbs.db
 # Keep these files
 !README.md
 !VERCEL_DEPLOYMENT_GUIDE.md
+!privacy-policy.html
+!terms-conditions.html
