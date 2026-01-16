@@ -1,0 +1,4357 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franck Provost Milano - Navigation Bar</title>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           GLOBAL STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Color Palette */
+            --primary-dark: #0f0f0f;
+            --primary-gold: #d4af37;
+            --accent-rose: #e8b4a0;
+            --bg-cream: #faf8f5;
+            --bg-light: #ffffff;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666666;
+            --border-subtle: #e8e4df;
+            --shadow-gold: rgba(212, 175, 55, 0.3);
+
+            /* Typography */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Gradients */
+            --gradient-gold: linear-gradient(135deg, #d4af37, #e8b4a0);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-cream);
+            padding-top: 80px;
+        }
+
+        /* ============================================
+           NAVIGATION BAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: padding 0.4s ease;
+        }
+
+        .navbar.scrolled .navbar-container {
+            padding: 0.75rem 2rem;
+        }
+
+        /* Logo/Brand */
+        .navbar-brand {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+            z-index: 1002;
+        }
+
+        .navbar-brand::before {
+            content: '✂';
+            font-size: 1.5rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rotate 3s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .navbar-brand span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Desktop Wrap */
+        .navbar-collapse {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        /* Desktop Navigation Menu */
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-menu li {
+            position: relative;
+        }
+
+        .navbar-menu a {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+            display: inline-block;
+            white-space: nowrap;
+            /* Prevent "Perché Noi" wrap */
+        }
+
+        /* Animated Underline Effect */
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar-menu a:hover::after,
+        .navbar-menu a.active::after {
+            width: 100%;
+        }
+
+        .navbar-menu a:hover,
+        .navbar-menu a.active {
+            color: var(--primary-gold);
+        }
+
+        /* CTA Button */
+        .navbar-actions {
+            margin-left: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 1rem 2rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: var(--gradient-gold);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .navbar-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .navbar-cta:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-gold);
+        }
+
+        /* Toggle Button */
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002;
+        }
+
+        .navbar-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-dark);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        .navbar-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .navbar-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .navbar-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* ============================================
+           RESPONSIVE BREAKPOINTS
+           ============================================ */
+
+        /* Large Desktop: 1280px and above - PERFECT CENTERING */
+        @media (min-width: 1280px) {
+            .navbar-container {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                gap: 2rem;
+            }
+
+            .navbar-collapse {
+                display: contents;
+                /* Allows children to participate in Grid */
+            }
+
+            .navbar-menu {
+                grid-column: 2;
+                justify-self: center;
+                gap: 3rem;
+            }
+
+            .navbar-actions {
+                grid-column: 3;
+                justify-self: end;
+                margin-left: 0;
+            }
+        }
+
+        /* Transition Zone: 1024px - 1279px */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .navbar-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .navbar-collapse {
+                justify-content: flex-end;
+            }
+
+            .navbar-menu {
+                gap: 1.5rem;
+            }
+
+            .navbar-menu a {
+                font-size: 0.9375rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .navbar-actions {
+                margin-left: 1rem;
+            }
+
+            .navbar-cta {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Tablets & Mobile: 1023px and below */
+        @media (max-width: 1023px) {
+            .navbar-toggle {
+                display: flex;
+            }
+
+            .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: linear-gradient(135deg, rgba(250, 248, 245, 0.98), rgba(255, 255, 255, 0.98));
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 6rem 2rem 2rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow-y: auto;
+                z-index: 1001;
+            }
+
+            .navbar-collapse.active {
+                right: 0;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                width: 100%;
+                align-items: flex-start;
+                gap: 0;
+            }
+
+            .navbar-menu li {
+                width: 100%;
+                border-bottom: 1px solid var(--border-subtle);
+                animation: slideInRight 0.4s ease-out backwards;
+            }
+
+            .navbar-menu li:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            .navbar-menu li:nth-child(2) {
+                animation-delay: 0.15s;
+            }
+
+            .navbar-menu li:nth-child(3) {
+                animation-delay: 0.2s;
+            }
+
+            .navbar-menu li:nth-child(4) {
+                animation-delay: 0.25s;
+            }
+
+            .navbar-menu li:nth-child(5) {
+                animation-delay: 0.3s;
+            }
+
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            .navbar-menu a {
+                width: 100%;
+                padding: 1.25rem 0;
+                font-size: 1.125rem;
+            }
+
+            .navbar-actions {
+                margin-left: 0;
+                margin-top: 2rem;
+                width: 100%;
+                animation: slideInRight 0.4s ease-out 0.35s backwards;
+            }
+
+            .navbar-cta {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+
+            .navbar-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        /* Mobile: 767px and below */
+        @media (max-width: 767px) {
+            .navbar-container {
+                padding: 1rem 1.25rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo/Brand -->
+            <a href="#" class="navbar-brand">
+                <span>Franck Provost</span>
+            </a>
+
+            <!-- Collapsible Wrapper for Links + CTA -->
+            <div class="navbar-collapse" id="navbarCollapse">
+                <!-- Navigation Menu -->
+                <ul class="navbar-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#why-us-2" class="nav-link">Perché Noi</a></li>
+                    <li><a href="#services-images" class="nav-link">Servizi</a></li>
+                    <li><a href="#testimonials" class="nav-link">Recensioni</a></li>
+                    <li><a href="#location" class="nav-link">Contatti</a></li>
+                </ul>
+
+                <!-- CTA Button -->
+                <div class="navbar-actions">
+                    <a href="tel:+390276281730" class="navbar-cta">
+                        <i class="fi fi-rr-phone-call"></i>
+                        <span>Prenota Ora</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="navbar-overlay" id="navbarOverlay"></div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.getElementById('navbar');
+            const navbarToggle = document.getElementById('navbarToggle');
+            const navbarCollapse = document.getElementById('navbarCollapse'); // New wrapper
+            const navbarOverlay = document.getElementById('navbarOverlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Scroll Effect
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile Menu Toggle
+            function toggleMenu() {
+                navbarToggle.classList.toggle('active');
+                navbarCollapse.classList.toggle('active'); // Toggle wrapper
+                navbarOverlay.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+
+            navbarToggle.addEventListener('click', toggleMenu);
+            navbarOverlay.addEventListener('click', toggleMenu);
+
+            // Smooth Scroll & Close Menu
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Active State
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Scroll
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        if (navbarCollapse.classList.contains('active')) toggleMenu();
+
+                        const navbarHeight = navbar.offsetHeight;
+                        const targetPosition = targetSection.offsetTop - navbarHeight;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Close on ESC
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && navbarCollapse.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+    <style>
+        /* Hero Section Styles */
+        :root {
+            /* Premium Color Palette */
+            --primary-dark: #0f0f0f;
+            --primary-gold: #d4af37;
+            --accent-rose: #e8b4a0;
+            --bg-cream: #faf8f5;
+            --bg-light: #ffffff;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666666;
+            --shadow-soft: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+
+            /* Typography */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-cream);
+        }
+
+        /* ============================================
+           HERO SECTION - Creative Split-Screen
+           Modern image-based layout with gallery
+           ============================================ */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(250, 248, 245, 0.90) 100%),
+                url('images/hero_bg_salon_wide.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            align-items: center;
+            padding: 0 2.5rem;
+        }
+
+        /* Left Column - Content */
+        .hero-content {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: #3e2723;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .title-line {
+            display: block;
+        }
+
+        .title-line.highlight {
+            color: #d4af37;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #5d4037;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e342e;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6d4c41;
+            font-weight: 600;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+        }
+
+        /* Right Column - Image Gallery */
+        .hero-gallery {
+            position: relative;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-large {
+            grid-column: 1 / -1;
+            aspect-ratio: 16 / 10;
+        }
+
+        .gallery-small {
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-decoration {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(232, 180, 160, 0.1));
+            border-radius: 50%;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Floating Elements */
+        .hero-floating-elements {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-line {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            width: 150px;
+            height: 2px;
+            background: transparent;
+            animation: slideHorizontal 10s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes slideHorizontal {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(50px);
+            }
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 1.25rem 3rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            color: var(--bg-light);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #2a2a2a 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px var(--shadow-medium);
+        }
+
+        .btn-primary i {
+            font-size: 1.5rem;
+        }
+
+        /* Transition Zone: 1024px - 1279px */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .hero-grid {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Responsive Design - Hero Section */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-gallery {
+                order: 2;
+            }
+
+            .hero-content {
+                order: 1;
+                text-align: center;
+            }
+
+            .hero-description {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-cta-group {
+                align-items: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+        }
+
+        /* Tablet specific: 768px - 1024px */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+
+            .hero-grid {
+                max-width: 720px;
+                margin: 0 auto;
+            }
+
+            .hero-title {
+                font-size: 3.75rem;
+            }
+
+            .hero-description {
+                max-width: 600px;
+                font-size: 1.0625rem;
+            }
+
+            .gallery-grid {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .btn-primary {
+                padding: 1.125rem 2.5rem;
+                font-size: 1.0625rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 6rem 0 3rem;
+            }
+
+            .hero-grid {
+                padding: 0 1.25rem;
+            }
+
+            .gallery-grid {
+                gap: 1rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .floating-circle,
+            .floating-line {
+                display: none;
+                /* Hide decorative elements on small screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .stat-item {
+                align-items: center;
+            }
+
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+        <!-- HERO SECTION -->
+        <header role="banner" id="home" class="hero-section">
+            <div class="hero-grid">
+                <!-- Left Column: Content -->
+                <div class="hero-content">
+                    <div class="hero-badge">✨ Franck Provost Milano</div>
+                    <h1 class="hero-title">
+                        <span class="title-line">Un risultato che</span>
+                        <span class="title-line highlight">ti rappresenta,</span>
+                        <span class="title-line">non una sorpresa</span>
+                    </h1>
+                    <p class="hero-description">
+                        Ascoltiamo davvero ciò che desideri e lo trasformiamo in un risultato
+                        condiviso e concordato — senza improvvisazioni e senza stress.
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="tel:+390276281730" class="btn-primary" role="button"
+                            aria-label="Chiama ora Franck Provost Milano per prenotare consulenza">
+                            <i class="fi fi-rr-phone-call" aria-hidden="true"></i>
+                            <span>Prenota Consulenza</span>
+                        </a>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Clienti Soddisfatti</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">4.9★</span>
+                                <span class="stat-label">Recensioni</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Image Gallery -->
+                <div class="hero-gallery">
+                    <div class="gallery-grid">
+                        <div class="gallery-item gallery-large">
+                            <img src="images/hero_main_new.png"
+                                alt="Candid editorial shot of beautiful woman with long wavy hair in luxury salon">
+                        </div>
+                        <div class="gallery-item gallery-small">
+                            <img src="images/hero_small_1.png" alt="Professional hairstylist working in luxury salon">
+                        </div>
+                        <div class="gallery-item gallery-small">
+                            <img src="images/hero_small_2.png" alt="Elegant finished hairstyle result">
+                        </div>
+                    </div>
+                    <div class="gallery-decoration"></div>
+                </div>
+            </div>
+
+            <!-- Floating Elements for Visual Interest -->
+            <div class="hero-floating-elements">
+                <div class="floating-circle"></div>
+                <div class="floating-line"></div>
+            </div>
+        </header>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --primary-dark: #3e2723;
+                --primary-gold: #d4af37;
+                --accent-rose: #e8b4a0;
+                --bg-cream: #faf8f5;
+                --bg-light: #ffffff;
+                --text-primary: #2c2c2c;
+                --text-secondary: #666666;
+                --border-subtle: #e8e4df;
+                --font-serif: 'Cormorant Garamond', serif;
+                --font-sans: 'Montserrat', sans-serif;
+            }
+
+            body {
+                font-family: var(--font-sans);
+                line-height: 1.7;
+                color: var(--text-primary);
+                background-color: var(--bg-cream);
+            }
+
+            /* Trust Section - Creative 2-Column Timeline */
+            .trust-section {
+                padding: 8rem 0;
+                background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .trust-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 2.5rem;
+            }
+
+            /* Section Header */
+            .section-header {
+                text-align: center;
+                margin-bottom: 5rem;
+            }
+
+            .section-header h2 {
+                font-family: var(--font-serif);
+                font-size: clamp(2.5rem, 5vw, 3.75rem);
+                font-weight: 700;
+                color: #3e2723 !important;
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .section-subtitle {
+                font-size: 1.25rem;
+                color: #5d4037 !important;
+                /* Rich Dark Brown for better visibility */
+                font-weight: 500;
+                max-width: 700px;
+                margin: 0 auto;
+                line-height: 1.7;
+            }
+
+            /* Process Timeline - 2 Column Layout */
+            .process-timeline {
+                position: relative;
+                padding: 2rem 0;
+            }
+
+            /* Central Timeline Line */
+            .process-timeline::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: linear-gradient(180deg, var(--primary-gold), var(--accent-rose));
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+
+            /* Process Cards Container */
+            .timeline-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                margin-bottom: 3rem;
+                position: relative;
+            }
+
+            /* Process Cards */
+            .process-card {
+                padding: 3rem 2.5rem;
+                background: white;
+                border-radius: 24px;
+                border: 2px solid var(--border-subtle);
+                position: relative;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            }
+
+            .process-card:hover {
+                transform: translateY(-8px);
+                border-color: var(--primary-gold);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            }
+
+            /* Timeline Dot Connector */
+            .process-card::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                width: 20px;
+                height: 20px;
+                background: white;
+                border: 4px solid var(--primary-gold);
+                border-radius: 50%;
+                transform: translateY(-50%);
+                z-index: 2;
+                box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.1);
+            }
+
+            /* Left Card - Dot on Right */
+            .timeline-row .process-card:first-child::before {
+                right: -42px;
+            }
+
+            /* Right Card - Dot on Left */
+            .timeline-row .process-card:last-child::before {
+                left: -42px;
+            }
+
+            /* Connecting Line from Card to Dot */
+            .process-card::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                width: 40px;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary-gold), var(--accent-rose));
+                transform: translateY(-50%);
+                z-index: 1;
+            }
+
+            /* Left Card - Line to Right */
+            .timeline-row .process-card:first-child::after {
+                right: -40px;
+            }
+
+            /* Right Card - Line to Left */
+            .timeline-row .process-card:last-child::after {
+                left: -40px;
+            }
+
+            /* Large Decorative Numbers */
+            .process-number {
+                font-family: var(--font-serif);
+                font-size: 4rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                line-height: 1;
+                margin-bottom: 1.5rem;
+                opacity: 0.9;
+            }
+
+            /* Process Icon */
+            .process-icon {
+                width: 72px;
+                height: 72px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(232, 180, 160, 0.15));
+                border-radius: 50%;
+                margin-bottom: 2rem;
+                transition: all 0.3s ease;
+            }
+
+            .process-card:hover .process-icon {
+                background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+            }
+
+            .process-icon i {
+                font-size: 2rem;
+                color: var(--primary-gold);
+                transition: all 0.3s ease;
+            }
+
+            .process-card:hover .process-icon i {
+                color: white;
+            }
+
+            /* Process Content */
+            .process-title {
+                font-family: var(--font-serif);
+                font-size: 1.75rem;
+                font-weight: 600;
+                color: var(--primary-dark);
+                margin-bottom: 1.25rem;
+                line-height: 1.3;
+            }
+
+            .process-description {
+                font-size: 1.0625rem;
+                line-height: 1.8;
+                color: var(--text-secondary);
+            }
+
+            /* Trust Quote */
+            .trust-quote {
+                max-width: 900px;
+                margin: 4rem auto 0;
+                padding: 4rem 3rem;
+                background: linear-gradient(135deg, var(--primary-dark) 0%, #2a2a2a 100%);
+                border-radius: 28px;
+                text-align: center;
+                position: relative;
+                box-shadow: 0 24px 70px rgba(0, 0, 0, 0.15);
+            }
+
+            .quote-icon {
+                width: 72px;
+                height: 72px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                border-radius: 50%;
+                margin: 0 auto 2rem;
+                box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            }
+
+            .quote-icon i {
+                font-size: 2rem;
+                color: white;
+            }
+
+            .quote-text {
+                font-family: var(--font-serif);
+                font-size: 1.75rem;
+                line-height: 1.7;
+                font-style: italic;
+                color: var(--bg-cream);
+                margin-bottom: 1.5rem;
+            }
+
+            .quote-author {
+                font-size: 1.125rem;
+                font-style: normal;
+                font-weight: 600;
+                color: var(--primary-gold);
+                font-family: var(--font-sans);
+            }
+
+            /* CTA Button */
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.875rem;
+                padding: 1.25rem 3rem;
+                font-size: 1.125rem;
+                font-weight: 600;
+                font-family: var(--font-sans);
+                text-decoration: none;
+                color: var(--bg-light);
+                background: linear-gradient(135deg, var(--primary-dark) 0%, #2a2a2a 100%);
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .btn-primary::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.6s;
+            }
+
+            .btn-primary:hover::before {
+                left: 100%;
+            }
+
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            }
+
+            .btn-primary i {
+                font-size: 1.5rem;
+            }
+
+            /* Responsive Design */
+            @media (min-width: 1024px) and (max-width: 1279px) {
+                .trust-container {
+                    padding: 0 1.5rem;
+                }
+            }
+
+            @media (max-width: 1024px) {
+                .timeline-row {
+                    gap: 3rem;
+                }
+
+                .process-card {
+                    padding: 2.5rem 2rem;
+                }
+
+                .process-number {
+                    font-size: 3.5rem;
+                }
+
+                .process-title {
+                    font-size: 1.5rem;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .trust-section {
+                    padding: 5rem 0;
+                }
+
+                .trust-container {
+                    padding: 0 1.25rem;
+                }
+
+                /* Stack cards vertically on mobile */
+                .timeline-row {
+                    grid-template-columns: 1fr;
+                    gap: 2.5rem;
+                    margin-bottom: 2.5rem;
+                }
+
+                /* Remove central timeline on mobile */
+                .process-timeline::before {
+                    display: none;
+                }
+
+                /* Remove dots and connecting lines on mobile */
+                .process-card::before,
+                .process-card::after {
+                    display: none;
+                }
+
+                .process-card {
+                    padding: 2.5rem 2rem;
+                }
+
+                .process-number {
+                    font-size: 3rem;
+                }
+
+                .trust-quote {
+                    padding: 3rem 2rem;
+                }
+
+                .quote-text {
+                    font-size: 1.375rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .section-header {
+                    margin-bottom: 3rem;
+                }
+
+                .process-number {
+                    font-size: 2.5rem;
+                }
+
+                .process-title {
+                    font-size: 1.25rem;
+                }
+
+                .process-description {
+                    font-size: 1rem;
+                }
+
+                .process-icon {
+                    width: 64px;
+                    height: 64px;
+                }
+
+                .process-icon i {
+                    font-size: 1.75rem;
+                }
+            }
+
+            /* Hide the trust section without images */
+            #why-us {
+                display: none;
+            }
+
+            /* ============================================
+           IMAGE-BASED TRUST SECTION (Duplicate)
+           ============================================ */
+
+            /* Image-based cards */
+            .trust-section-images .process-card {
+                padding: 0;
+                overflow: hidden;
+            }
+
+            /* Remove numbers and icons for image section */
+            .trust-section-images .process-number,
+            .trust-section-images .process-icon {
+                display: none;
+            }
+
+            /* Image Container */
+            .card-image-container {
+                width: 100%;
+                height: 280px;
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #f5f5f5, #e8e4df);
+            }
+
+            .card-image-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .trust-section-images .process-card:hover .card-image-container img {
+                transform: scale(1.08);
+            }
+
+            /* Image Overlay */
+            .card-image-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+                padding: 2rem 1.5rem 1.5rem;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .trust-section-images .process-card:hover .card-image-overlay {
+                opacity: 1;
+            }
+
+            .card-image-label {
+                font-family: var(--font-serif);
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: white;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Card Content */
+            .trust-section-images .card-content {
+                padding: 2.5rem 2rem;
+                text-align: left;
+                /* Ensure neat alignment */
+            }
+
+            .trust-section-images .process-title {
+                margin-bottom: 1rem;
+                font-size: 1.75rem;
+                /* Slightly larger for impact */
+                font-weight: 700;
+
+                /* Creative Luxury Gradient Text */
+                background: linear-gradient(135deg, #2c1810 0%, #8a6e4b 50%, #2c1810 100%);
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+
+                transition: background-position 0.5s ease;
+            }
+
+            /* Shimmer effect on hover */
+            .trust-section-images .process-card:hover .process-title {
+                background-position: right center;
+            }
+
+            .trust-section-images .process-description {
+                font-size: 1.05rem;
+                line-height: 1.8;
+                color: #5d4037;
+                /* Rich Warm Charcoal instead of plain grey */
+                font-weight: 500;
+            }
+
+            /* Responsive for image section */
+            @media (max-width: 1024px) {
+                .card-image-container {
+                    height: 240px;
+                }
+
+                .trust-section-images .card-content {
+                    padding: 2rem 1.75rem;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .card-image-container {
+                    height: 220px;
+                }
+
+                .trust-section-images .card-content {
+                    padding: 2rem 1.5rem;
+                }
+
+                .trust-section-images .process-title {
+                    font-size: 1.5rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .card-image-container {
+                    height: 200px;
+                }
+
+                .card-image-label {
+                    font-size: 1.125rem;
+                }
+            }
+        </style>
+        </head>
+
+        <body>
+            <section id="why-us" class="trust-section">
+                <div class="trust-container">
+                    <!-- Section Header -->
+                    <div class="section-header">
+                        <h2>Il Nostro Approccio Unico</h2>
+                        <p class="section-subtitle">
+                            Un percorso personalizzato in 4 fasi per risultati che ti rappresentano
+                        </p>
+                    </div>
+
+                    <!-- Process Timeline -->
+                    <div class="process-timeline">
+                        <!-- Row 1: Steps 1 & 2 -->
+                        <div class="timeline-row">
+                            <!-- Step 1 -->
+                            <div class="process-card">
+                                <div class="process-number">01</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-comments"></i>
+                                </div>
+                                <h3 class="process-title">Ascolto Attivo</h3>
+                                <p class="process-description">
+                                    Ti ascoltiamo davvero. Ogni consulenza inizia con una conversazione approfondita
+                                    per capire i tuoi desideri, il tuo stile di vita e le tue aspettative.
+                                </p>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="process-card">
+                                <div class="process-number">02</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-palette"></i>
+                                </div>
+                                <h3 class="process-title">Personalizzazione</h3>
+                                <p class="process-description">
+                                    Creiamo un piano su misura basato sulla tua struttura capillare,
+                                    tonalità naturale e obiettivi estetici personali.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Steps 3 & 4 -->
+                        <div class="timeline-row">
+                            <!-- Step 3 -->
+                            <div class="process-card">
+                                <div class="process-number">03</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-magic-wand"></i>
+                                </div>
+                                <h3 class="process-title">Esecuzione Esperta</h3>
+                                <p class="process-description">
+                                    Tecnici qualificati Franck Provost realizzano il tuo look con
+                                    precisione, utilizzando prodotti premium e tecniche all'avanguardia.
+                                </p>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="process-card">
+                                <div class="process-number">04</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-star"></i>
+                                </div>
+                                <h3 class="process-title">Risultato Garantito</h3>
+                                <p class="process-description">
+                                    Un risultato che ti rappresenta, non una sorpresa. Esci dal salone
+                                    con la sicurezza di aver ottenuto esattamente ciò che desideravi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Quote -->
+                    <div class="trust-quote">
+                        <div class="quote-icon">
+                            <i class="fi fi-rr-quote-right"></i>
+                        </div>
+                        <p class="quote-text">
+                            "La nostra promessa è semplice: nessuna improvvisazione, solo risultati condivisi e
+                            concordati con
+                            te."
+                        </p>
+                        <cite class="quote-author">— Franck Provost Milano</cite>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <div class="trust-cta" style="text-align: center; margin-top: 3rem;">
+                        <a href="tel:+390276281730" class="btn-primary" role="button"
+                            aria-label="Chiama ora Franck Provost Milano per prenotare consulenza">
+                            <i class="fi fi-rr-phone-call" aria-hidden="true"></i>
+                            <span>Prenota la Tua Consulenza</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DUPLICATE SECTION - IMAGE BASED -->
+            <section id="why-us-2" class="trust-section trust-section-images">
+                <div class="trust-container">
+                    <!-- Section Header -->
+                    <div class="section-header">
+                        <h2>La Nostra Garanzia di Qualità</h2>
+                        <p class="section-subtitle">
+                            Risultati comprovati attraverso il nostro processo professionale
+                        </p>
+                    </div>
+
+                    <!-- Process Timeline -->
+                    <div class="process-timeline">
+                        <!-- Row 1: Steps 1 & 2 -->
+                        <div class="timeline-row">
+                            <!-- Step 1 -->
+                            <div class="process-card">
+                                <div class="process-number">01</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-comments"></i>
+                                </div>
+
+                                <!-- Image Container -->
+                                <div class="card-image-container">
+                                    <img src="images/trust_consultation.jpg" alt="Consulenza personalizzata in salone">
+                                    <div class="card-image-overlay">
+                                        <div class="card-image-label">Consulenza Professionale</div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="card-content">
+                                    <h3 class="process-title">Ascolto Attivo</h3>
+                                    <p class="process-description">
+                                        Ti ascoltiamo davvero. Ogni consulenza inizia con una conversazione approfondita
+                                        per capire i tuoi desideri, il tuo stile di vita e le tue aspettative.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="process-card">
+                                <div class="process-number">02</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-palette"></i>
+                                </div>
+
+                                <!-- Image Container -->
+                                <div class="card-image-container">
+                                    <img src="images/trust_personalization.jpg" alt="Personalizzazione del servizio">
+                                    <div class="card-image-overlay">
+                                        <div class="card-image-label">Piano Su Misura</div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="card-content">
+                                    <h3 class="process-title">Personalizzazione</h3>
+                                    <p class="process-description">
+                                        Creiamo un piano su misura basato sulla tua struttura capillare,
+                                        tonalità naturale e obiettivi estetici personali.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Steps 3 & 4 -->
+                        <div class="timeline-row">
+                            <!-- Step 3 -->
+                            <div class="process-card">
+                                <div class="process-number">03</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-magic-wand"></i>
+                                </div>
+
+                                <!-- Image Container -->
+                                <div class="card-image-container">
+                                    <img src="images/trust_execution.jpg" alt="Esecuzione professionale del servizio">
+                                    <div class="card-image-overlay">
+                                        <div class="card-image-label">Tecnica Avanzata</div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="card-content">
+                                    <h3 class="process-title">Esecuzione Esperta</h3>
+                                    <p class="process-description">
+                                        Tecnici qualificati Franck Provost realizzano il tuo look con
+                                        precisione, utilizzando prodotti premium e tecniche all'avanguardia.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="process-card">
+                                <div class="process-number">04</div>
+                                <div class="process-icon">
+                                    <i class="fi fi-rr-star"></i>
+                                </div>
+
+                                <!-- Image Container -->
+                                <div class="card-image-container">
+                                    <img src="images/trust_result.jpg" alt="Risultato finale garantito">
+                                    <div class="card-image-overlay">
+                                        <div class="card-image-label">Risultato Perfetto</div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="card-content">
+                                    <h3 class="process-title">Risultato Garantito</h3>
+                                    <p class="process-description">
+                                        Un risultato che ti rappresenta, non una sorpresa. Esci dal salone
+                                        con la sicurezza di aver ottenuto esattamente ciò che desideravi.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Quote -->
+                    <div class="trust-quote">
+                        <div class="quote-icon">
+                            <i class="fi fi-rr-quote-right"></i>
+                        </div>
+                        <p class="quote-text">
+                            "La nostra promessa è semplice: nessuna improvvisazione, solo risultati condivisi e
+                            concordati con
+                            te."
+                        </p>
+                        <cite class="quote-author">— Franck Provost Milano</cite>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <div class="trust-cta" style="text-align: center; margin-top: 3rem;">
+                        <a href="tel:+390276281730" class="btn-primary" role="button"
+                            aria-label="Chiama ora Franck Provost Milano per prenotare consulenza">
+                            <i class="fi fi-rr-phone-call" aria-hidden="true"></i>
+                            <span>Prenota la Tua Consulenza</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                :root {
+                    --primary-dark: #3e2723;
+                    --primary-gold: #d4af37;
+                    --accent-rose: #e8b4a0;
+                    --bg-cream: #faf8f5;
+                    --bg-light: #ffffff;
+                    --text-primary: #2c2c2c;
+                    --text-secondary: #666666;
+                    --border-subtle: #e8e4df;
+                    --font-serif: 'Cormorant Garamond', serif;
+                    --font-sans: 'Montserrat', sans-serif;
+                }
+
+                body {
+                    font-family: var(--font-sans);
+                    line-height: 1.7;
+                    color: var(--text-primary);
+                    background-color: var(--bg-cream);
+                }
+
+                /* Services Section - Interactive Card Grid */
+                .services-section {
+                    padding: 8rem 0;
+                    background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+                    position: relative;
+                }
+
+                .services-container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding: 0 2.5rem;
+                }
+
+                /* Section Header */
+                .section-header {
+                    text-align: center;
+                    margin-bottom: 5rem;
+                }
+
+                .section-header h2 {
+                    font-family: var(--font-serif);
+                    font-size: clamp(2.5rem, 5vw, 3.75rem);
+                    font-weight: 700;
+                    color: var(--primary-dark);
+                    margin-bottom: 1rem;
+                    letter-spacing: -0.02em;
+                }
+
+                .section-subtitle {
+                    font-size: 1.25rem;
+                    color: #5d4037 !important;
+                    /* Rich Dark Brown for better visibility */
+                    font-weight: 500;
+                    max-width: 700px;
+                    margin: 0 auto;
+                    line-height: 1.7;
+                }
+
+                /* Services Grid */
+                .services-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 2.5rem;
+                    margin-bottom: 5rem;
+                }
+
+                /* Center the 7th card for a neat layout */
+                @media (min-width: 1025px) {
+                    .service-card:nth-child(7) {
+                        grid-column: 2;
+                    }
+                }
+
+                @media (min-width: 769px) and (max-width: 1024px) {
+                    .service-card:nth-child(7) {
+                        grid-column: 1 / -1;
+                        max-width: 700px;
+                        margin: 0 auto;
+                        width: 100%;
+                    }
+                }
+
+                /* Service Cards */
+                .service-card {
+                    background: white;
+                    border-radius: 28px;
+                    padding: 3rem 2.5rem;
+                    position: relative;
+                    overflow: hidden;
+                    border: 2px solid var(--border-subtle);
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    min-height: 480px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .service-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 6px;
+                    background: linear-gradient(90deg, var(--primary-gold), var(--accent-rose));
+                    transform: scaleX(0);
+                    transition: transform 0.5s ease;
+                }
+
+                .service-card:hover::before {
+                    transform: scaleX(1);
+                }
+
+                .service-card:hover {
+                    transform: translateY(-16px);
+                    border-color: var(--primary-gold);
+                    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.15);
+                }
+
+                /* Service Image Overlay */
+                .service-image-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(135deg, rgba(212, 175, 55, 0.03), rgba(232, 180, 160, 0.03));
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                    z-index: 0;
+                }
+
+                .service-card:hover .service-image-overlay {
+                    opacity: 1;
+                }
+
+                /* Service Content */
+                .service-content {
+                    position: relative;
+                    z-index: 1;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                }
+
+                /* Service Icon */
+                .service-icon {
+                    width: 80px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                    border-radius: 50%;
+                    margin-bottom: 2rem;
+                    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.3);
+                    transition: transform 0.4s ease;
+                }
+
+                .service-card:hover .service-icon {
+                    transform: scale(1.1) rotate(5deg);
+                }
+
+                .service-icon i {
+                    font-size: 2.25rem;
+                    color: white;
+                }
+
+                /* Service Title */
+                .service-title {
+                    font-family: var(--font-serif);
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: var(--primary-dark);
+                    margin-bottom: 1rem;
+                    line-height: 1.2;
+                    min-height: 2.4em;
+                    /* Enforce height for approx 2 lines to align rows */
+                    display: flex;
+                    align-items: flex-end;
+                    /* Align text to bottom of the reserved space */
+                }
+
+                /* Service Description */
+                .service-description {
+                    font-size: 1.0625rem;
+                    line-height: 1.7;
+                    color: var(--text-secondary);
+                    margin-bottom: 2rem;
+                    min-height: 5.1rem;
+                    /* Enforce height for approx 3 lines */
+                }
+
+
+                /* Service Features */
+                .service-features {
+                    list-style: none;
+                    /* margin-top: auto; Removed to ensure top-alignment across row */
+                }
+
+                .service-features li {
+                    display: flex;
+                    align-items: flex-start;
+                    /* Align icon to top for multi-line items */
+                    gap: 0.75rem;
+                    font-size: 0.9375rem;
+                    color: var(--text-primary);
+                    margin-bottom: 0.875rem;
+                    line-height: 1.5;
+                }
+
+                .service-features i {
+                    color: var(--primary-gold);
+                    font-size: 1.125rem;
+                    flex-shrink: 0;
+                    margin-top: 0.2rem;
+                    /* Visual adjustment for flex-start alignment */
+                }
+
+                /* Service Badge */
+                .service-badge {
+                    position: absolute;
+                    top: 2rem;
+                    right: 2rem;
+                    padding: 0.5rem 1.25rem;
+                    background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                    color: white;
+                    font-size: 0.8125rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+                    z-index: 2;
+                }
+
+                /* Services CTA - Professional & Creative Redesign */
+                .services-cta {
+                    text-align: center;
+                    padding: 4rem 3rem;
+                    margin-top: 5rem;
+                    border-radius: 32px;
+                    position: relative;
+                    overflow: hidden;
+
+                    /* Rich Dark Background for Contrast & Elegance */
+                    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                    border: 1px solid rgba(212, 175, 55, 0.1);
+                }
+
+                /* Creative Background Decoration */
+                .services-cta::before {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+                    pointer-events: none;
+                }
+
+                .cta-text {
+                    font-family: var(--font-serif);
+                    font-size: 2rem;
+                    color: #ffffff;
+                    /* White text for contrast */
+                    margin-bottom: 2.5rem;
+                    font-weight: 500;
+                    position: relative;
+                    z-index: 1;
+                    line-height: 1.4;
+                }
+
+                .cta-text span {
+                    color: var(--primary-gold);
+                    font-style: italic;
+                    font-weight: 600;
+                }
+
+                /* Enhanced CTA Button for this context */
+                .services-cta .btn-primary {
+                    background: linear-gradient(135deg, var(--primary-gold) 0%, #b8860b 100%);
+                    color: #fff;
+                    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+
+                .services-cta .btn-primary:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
+                }
+
+                .services-cta .btn-primary::before {
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+                }
+
+                /* CTA Button */
+                .btn-primary {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.875rem;
+                    padding: 1.25rem 3rem;
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    font-family: var(--font-sans);
+                    text-decoration: none;
+                    color: var(--bg-light);
+                    background: linear-gradient(135deg, var(--primary-dark) 0%, #2a2a2a 100%);
+                    border: none;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .btn-primary::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                    transition: left 0.6s;
+                }
+
+                .btn-primary:hover::before {
+                    left: 100%;
+                }
+
+                .btn-primary:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+                }
+
+                .btn-primary i {
+                    font-size: 1.5rem;
+                }
+
+                /* Responsive Design */
+                @media (min-width: 1024px) and (max-width: 1279px) {
+                    .services-container {
+                        padding: 0 1.5rem;
+                    }
+                }
+
+                @media (max-width: 1024px) {
+                    .services-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .services-section {
+                        padding: 5rem 0;
+                    }
+
+                    .services-container {
+                        padding: 0 1.25rem;
+                    }
+
+                    .services-grid {
+                        grid-template-columns: 1fr;
+                        gap: 2rem;
+                    }
+
+                    .service-card {
+                        min-height: auto;
+                        padding: 2.5rem 2rem;
+                    }
+
+                    .service-icon {
+                        width: 64px;
+                        height: 64px;
+                    }
+
+                    .service-icon i {
+                        font-size: 1.75rem;
+                    }
+
+                    .service-title {
+                        font-size: 1.75rem;
+                    }
+
+
+                    .services-cta {
+                        padding: 2.5rem 2rem;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                    }
+
+                    .cta-text {
+                        font-size: 1.25rem;
+                    }
+
+                    /* Optimizing Mobile Buttons for Elegance */
+                    .btn-primary,
+                    .navbar-cta,
+                    .hero-cta-group .btn-primary {
+                        padding: 0.875rem 2rem !important;
+                        font-size: 1rem !important;
+                        width: auto;
+                        /* Allow natural width unless full width is needed */
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .service-badge {
+                        top: 1.5rem;
+                        right: 1.5rem;
+                        font-size: 0.75rem;
+                        padding: 0.4rem 1rem;
+                    }
+
+                    .btn-primary {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
+
+                /* Hide the services section without images */
+                #services {
+                    display: none;
+                }
+
+                /* Image-Based Services Section Styles */
+                .services-section-images .service-card {
+                    padding: 0;
+                    overflow: hidden;
+                }
+
+                .service-img-container {
+                    width: 100%;
+                    height: 300px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .service-img-container img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                .services-section-images .service-card:hover .service-img-container img {
+                    transform: scale(1.1);
+                }
+
+                .services-section-images .service-content {
+                    padding: 2.5rem 2rem;
+                }
+
+                .services-section-images .service-badge {
+                    top: 1rem;
+                    right: 1rem;
+                }
+            </style>
+            </head>
+
+            <body>
+                <section id="services" class="services-section">
+                    <div class="services-container">
+                        <!-- Section Header -->
+                        <div class="section-header">
+                            <h2>I Nostri Servizi</h2>
+                            <p class="section-subtitle">
+                                Servizi premium per trasformare il tuo look con stile e professionalità
+                            </p>
+                        </div>
+
+                        <!-- Services Grid -->
+                        <div class="services-grid">
+                            <!-- Service Card 1: Piega Donna -->
+                            <div class="service-card" data-category="styling">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-magic-wand"></i>
+                                    </div>
+                                    <h3 class="service-title">Piega Donna</h3>
+                                    <p class="service-description">
+                                        Servizi di styling professionale con prodotti premium per risultati duraturi e
+                                        luminosi.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Piega Brillante (shampoo neutro con
+                                            districante e finish)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Piega Preziosa (shampoo con maschera,
+                                            massaggio e finish)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Piega Bonder Extreme (trattamento molecolare)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Trattamenti specifici al lavaggio</li>
+                                    </ul>
+                                </div>
+                                <div class="service-badge">Popolare</div>
+                            </div>
+
+                            <!-- Service Card 2: Colore -->
+                            <div class="service-card" data-category="color">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-palette"></i>
+                                    </div>
+                                    <h3 class="service-title">Colore</h3>
+                                    <p class="service-description">
+                                        Servizi di colorazione completi, dalle tonalità naturali alle trasformazioni
+                                        vibranti.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Standard - colorazione classica</li>
+                                        <li><i class="fi fi-rr-check"></i> Naturelle (senza ammoniaca)</li>
+                                        <li><i class="fi fi-rr-check"></i> Duo Cashmere premium</li>
+                                        <li><i class="fi fi-rr-check"></i> Olio Schiarente</li>
+                                        <li><i class="fi fi-rr-check"></i> Henné trattamenti naturali</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 3: Trattamenti -->
+                            <div class="service-card" data-category="treatments">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-spa"></i>
+                                    </div>
+                                    <h3 class="service-title">Trattamenti</h3>
+                                    <p class="service-description">
+                                        Trattamenti professionali per capelli sani, luminosi e rivitalizzati con
+                                        prodotti premium.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Decolorazione professionale</li>
+                                        <li><i class="fi fi-rr-check"></i> Diamante (tonalizzazione)</li>
+                                        <li><i class="fi fi-rr-check"></i> Anticrespo Keratina (su richiesta)</li>
+                                        <li><i class="fi fi-rr-check"></i> Kerastase Fusio-Dose</li>
+                                        <li><i class="fi fi-rr-check"></i> Kerastase Mask e Première</li>
+                                    </ul>
+                                </div>
+                                <div class="service-badge">Premium</div>
+                            </div>
+
+                            <!-- Service Card 4: Taglio -->
+                            <div class="service-card" data-category="cuts">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-scissors"></i>
+                                    </div>
+                                    <h3 class="service-title">Taglio</h3>
+                                    <p class="service-description">
+                                        Tagli di precisione personalizzati per il tuo stile e tipo di capelli.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Taglio Dry o con Lavaggio</li>
+                                        <li><i class="fi fi-rr-check"></i> Donna - tagli femminili</li>
+                                        <li><i class="fi fi-rr-check"></i> Uomo - tagli maschili</li>
+                                        <li><i class="fi fi-rr-check"></i> Bambini - tagli per bambini</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 5: Balayage -->
+                            <div class="service-card" data-category="balayage">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-brush"></i>
+                                    </div>
+                                    <h3 class="service-title">Balayage</h3>
+                                    <p class="service-description">
+                                        Colpi di sole dipinti a mano per una dimensione naturale e baciata dal sole.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> IndianSun - tecnica esclusiva</li>
+                                        <li><i class="fi fi-rr-check"></i> Ombre - effetti sfumati</li>
+                                        <li><i class="fi fi-rr-check"></i> Absolut - balayage premium</li>
+                                        <li><i class="fi fi-rr-check"></i> Posizionamento colore personalizzato</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 6: Servizi Estetici -->
+                            <div class="service-card" data-category="aesthetic">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-hand-sparkles"></i>
+                                    </div>
+                                    <h3 class="service-title">Servizi Estetici</h3>
+                                    <p class="service-description">
+                                        Servizi di bellezza completi per completare la tua trasformazione capillare.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Manicure professionale</li>
+                                        <li><i class="fi fi-rr-check"></i> Pedicure</li>
+                                        <li><i class="fi fi-rr-check"></i> Sopracciglia - design e cura</li>
+                                        <li><i class="fi fi-rr-check"></i> Colore Sopracciglia</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 7: Rivendita Prodotti -->
+                            <div class="service-card" data-category="products">
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <div class="service-icon">
+                                        <i class="fi fi-rr-shopping-bag"></i>
+                                    </div>
+                                    <h3 class="service-title">Rivendita Prodotti</h3>
+                                    <p class="service-description">
+                                        I migliori brand professionali per mantenere la bellezza dei tuoi capelli a
+                                        casa.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Franck Provost & L'Oreal Professionnel</li>
+                                        <li><i class="fi fi-rr-check"></i> Kérastase - rituali di lusso</li>
+                                        <li><i class="fi fi-rr-check"></i> GHD - strumenti di styling</li>
+                                        <li><i class="fi fi-rr-check"></i> Linea Uomo The Barber</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="services-cta">
+                            <p class="cta-text">Vuoi conoscere <span>tutti i nostri servizi</span> nel dettaglio?</p>
+                            <a href="tel:+390276281730" class="btn-primary">
+                                <i class="fi fi-rr-phone-call"></i>
+                                <span>Contattaci per Info</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                </section>
+
+                <!-- DUPLICATE SECTION - IMAGE BASED (Generated) -->
+                <section id="services-images" class="services-section services-section-images">
+                    <div class="services-container">
+                        <!-- Section Header -->
+                        <div class="section-header">
+                            <h2>I Nostri Servizi (Visual Experience)</h2>
+                            <p class="section-subtitle">
+                                Immergiti nell'esperienza visiva dei nostri servizi premium
+                            </p>
+                        </div>
+
+                        <!-- Services Grid -->
+                        <div class="services-grid">
+                            <!-- Service Card 1: Piega Donna -->
+                            <div class="service-card" data-category="styling">
+                                <div class="service-img-container">
+                                    <img src="images/service_styling_gen.png" alt="Piega Donna Luxury Styling">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Piega Donna</h3>
+                                    <p class="service-description">
+                                        Servizi di styling professionale con prodotti premium per risultati duraturi e
+                                        luminosi.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Piega Brillante (shampoo neutro con
+                                            districante e finish)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Piega Preziosa (shampoo con maschera,
+                                            massaggio e finish)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Piega Bonder Extreme (trattamento molecolare)
+                                        </li>
+                                        <li><i class="fi fi-rr-check"></i> Trattamenti specifici al lavaggio</li>
+                                    </ul>
+                                </div>
+                                <div class="service-badge">Popolare</div>
+                            </div>
+
+                            <!-- Service Card 2: Colore -->
+                            <div class="service-card" data-category="color">
+                                <div class="service-img-container">
+                                    <img src="images/service_color_gen.png" alt="Servizio Colore Professionale">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Colore</h3>
+                                    <p class="service-description">
+                                        Servizi di colorazione completi, dalle tonalità naturali alle trasformazioni
+                                        vibranti.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Standard - colorazione classica</li>
+                                        <li><i class="fi fi-rr-check"></i> Naturelle (senza ammoniaca)</li>
+                                        <li><i class="fi fi-rr-check"></i> Duo Cashmere premium</li>
+                                        <li><i class="fi fi-rr-check"></i> Olio Schiarente</li>
+                                        <li><i class="fi fi-rr-check"></i> Henné trattamenti naturali</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 3: Trattamenti -->
+                            <div class="service-card" data-category="treatments">
+                                <div class="service-img-container">
+                                    <img src="images/service_treatments_gen.png" alt="Trattamenti Capelli Spa">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Trattamenti</h3>
+                                    <p class="service-description">
+                                        Trattamenti professionali per capelli sani, luminosi e rivitalizzati con
+                                        prodotti premium.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Decolorazione professionale</li>
+                                        <li><i class="fi fi-rr-check"></i> Diamante (tonalizzazione)</li>
+                                        <li><i class="fi fi-rr-check"></i> Anticrespo Keratina (su richiesta)</li>
+                                        <li><i class="fi fi-rr-check"></i> Kerastase Fusio-Dose</li>
+                                        <li><i class="fi fi-rr-check"></i> Kerastase Mask e Première</li>
+                                    </ul>
+                                </div>
+                                <div class="service-badge">Premium</div>
+                            </div>
+
+                            <!-- Service Card 4: Taglio -->
+                            <div class="service-card" data-category="cuts">
+                                <div class="service-img-container">
+                                    <img src="images/service_cut_gen.png" alt="Taglio Precisione">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Taglio</h3>
+                                    <p class="service-description">
+                                        Tagli di precisione personalizzati per il tuo stile e tipo di capelli.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Taglio Dry o con Lavaggio</li>
+                                        <li><i class="fi fi-rr-check"></i> Donna - tagli femminili</li>
+                                        <li><i class="fi fi-rr-check"></i> Uomo - tagli maschili</li>
+                                        <li><i class="fi fi-rr-check"></i> Bambini - tagli per bambini</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 5: Balayage -->
+                            <div class="service-card" data-category="balayage">
+                                <div class="service-img-container">
+                                    <img src="images/service_balayage_gen.png" alt="Balayage e Sfumature">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Balayage</h3>
+                                    <p class="service-description">
+                                        Colpi di sole dipinti a mano per una dimensione naturale e baciata dal sole.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> IndianSun - tecnica esclusiva</li>
+                                        <li><i class="fi fi-rr-check"></i> Ombre - effetti sfumati</li>
+                                        <li><i class="fi fi-rr-check"></i> Absolut - balayage premium</li>
+                                        <li><i class="fi fi-rr-check"></i> Posizionamento colore personalizzato</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 6: Servizi Estetici -->
+                            <div class="service-card" data-category="aesthetic">
+                                <div class="service-img-container">
+                                    <img src="images/service_aesthetic_gen.png" alt="Manicure e Estetica">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Servizi Estetici</h3>
+                                    <p class="service-description">
+                                        Servizi di bellezza completi per completare la tua trasformazione capillare.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Manicure professionale</li>
+                                        <li><i class="fi fi-rr-check"></i> Pedicure</li>
+                                        <li><i class="fi fi-rr-check"></i> Sopracciglia - design e cura</li>
+                                        <li><i class="fi fi-rr-check"></i> Colore Sopracciglia</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 7: Rivendita Prodotti -->
+                            <div class="service-card" data-category="products">
+                                <div class="service-img-container">
+                                    <img src="images/service_products_gen.png" alt="Prodotti Premium">
+                                </div>
+                                <div class="service-image-overlay"></div>
+                                <div class="service-content">
+                                    <h3 class="service-title">Rivendita Prodotti</h3>
+                                    <p class="service-description">
+                                        I migliori brand professionali per mantenere la bellezza dei tuoi capelli a
+                                        casa.
+                                    </p>
+                                    <ul class="service-features">
+                                        <li><i class="fi fi-rr-check"></i> Franck Provost & L'Oreal Professionnel</li>
+                                        <li><i class="fi fi-rr-check"></i> Kérastase - rituali di lusso</li>
+                                        <li><i class="fi fi-rr-check"></i> GHD - strumenti di styling</li>
+                                        <li><i class="fi fi-rr-check"></i> Linea Uomo The Barber</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="services-cta">
+                            <p class="cta-text">Vuoi conoscere <span>tutti i nostri servizi</span> nel dettaglio?</p>
+                            <a href="tel:+390276281730" class="btn-primary">
+                                <i class="fi fi-rr-phone-call"></i>
+                                <span>Contattaci per Info</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <style>
+                    /* Testimonials Section Styles */
+                    :root {
+                        --primary-dark: #3e2723;
+                        /* Deep Espresso Brown */
+                        --primary-brown: #5d4037;
+                        /* Rich Brown */
+                        --secondary-brown: #8d6e63;
+                        /* Soft Brown */
+                        --primary-gold: #d4af37;
+                        --accent-rose: #e8b4a0;
+                        --bg-cream: #faf8f5;
+                        --bg-light: #ffffff;
+                        --text-primary: #4e342e;
+                        /* Warm Dark Brown */
+                        --text-secondary: #795548;
+                        /* Muted Brown */
+                        --border-subtle: #e8e4df;
+                        --font-serif: 'Cormorant Garamond', serif;
+                        --font-sans: 'Montserrat', sans-serif;
+                    }
+
+                    /* Removed body reset to prevent global override */
+                    /* body { ... } */
+
+                    /* Testimonials Section - Advanced Split-Screen Design */
+                    .testimonials-section {
+                        padding: 8rem 0;
+                        background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    /* Animated Background Elements */
+                    .bg-decoration {
+                        position: absolute;
+                        border-radius: 50%;
+                        opacity: 0.04;
+                        pointer-events: none;
+                    }
+
+                    .bg-decoration-1 {
+                        width: 800px;
+                        height: 800px;
+                        background: radial-gradient(circle, var(--primary-gold), transparent);
+                        top: -300px;
+                        right: -300px;
+                        animation: float 25s ease-in-out infinite;
+                    }
+
+                    .bg-decoration-2 {
+                        width: 600px;
+                        height: 600px;
+                        background: radial-gradient(circle, var(--accent-rose), transparent);
+                        bottom: -200px;
+                        left: -200px;
+                        animation: float 30s ease-in-out infinite reverse;
+                    }
+
+                    @keyframes float {
+
+                        0%,
+                        100% {
+                            transform: translate(0, 0) scale(1);
+                        }
+
+                        50% {
+                            transform: translate(40px, -40px) scale(1.05);
+                        }
+                    }
+
+                    .testimonials-container {
+                        max-width: 1400px;
+                        margin: 0 auto;
+                        padding: 0 2.5rem;
+                    }
+
+                    /* Section Header with Stats Integration */
+                    .section-header {
+                        text-align: center;
+                        margin-bottom: 7rem;
+                        position: relative;
+                    }
+
+                    .section-header h2 {
+                        font-family: var(--font-serif);
+                        font-size: clamp(2.5rem, 5vw, 3.75rem);
+                        font-weight: 700;
+                        color: var(--primary-dark);
+                        margin-bottom: 1rem;
+                        letter-spacing: -0.02em;
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .section-header h2::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 140px;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--primary-gold), var(--accent-rose));
+                        border-radius: 2px;
+                    }
+
+                    .section-subtitle {
+                        font-size: 1.25rem;
+                        color: #5d4037 !important;
+                        /* Rich Dark Brown for better visibility */
+                        font-weight: 500;
+                        max-width: 700px;
+                        margin: 2.5rem auto 4rem;
+                        line-height: 1.7;
+                    }
+
+                    /* Inline Stats */
+                    .inline-stats {
+                        display: flex;
+                        gap: 5rem;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                    }
+
+                    .inline-stat {
+                        text-align: center;
+                        position: relative;
+                    }
+
+                    .inline-stat:not(:last-child)::after {
+                        content: '';
+                        position: absolute;
+                        right: -2.5rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        height: 40px;
+                        width: 1px;
+                        background-color: var(--border-subtle);
+                    }
+
+                    .inline-stat-value {
+                        font-family: var(--font-serif);
+                        font-size: 3rem;
+                        font-weight: 700;
+                        background: linear-gradient(135deg, var(--primary-dark), var(--primary-brown));
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        line-height: 1;
+                        margin-bottom: 0.5rem;
+                        display: block;
+                    }
+
+                    .inline-stat-label {
+                        font-size: 0.9rem;
+                        color: var(--text-secondary);
+                        text-transform: uppercase;
+                        letter-spacing: 0.15em;
+                        font-weight: 600;
+                    }
+
+                    /* Split-Screen Layout */
+                    .testimonials-split {
+                        display: grid;
+                        grid-template-columns: 42% 52%;
+                        /* Optimized ratio */
+                        gap: 6%;
+                        align-items: start;
+                        margin-bottom: 6rem;
+                    }
+
+                    /* Left Side - Featured Large Testimonial */
+                    .featured-testimonial {
+                        position: sticky;
+                        top: 120px;
+                        background: #fff;
+                        padding: 4rem;
+                        border-radius: 40px;
+                        border: 1px solid rgba(212, 175, 55, 0.2);
+                        box-shadow: 0 40px 100px rgba(93, 64, 55, 0.08);
+                        /* Warm brown shadow */
+                        position: relative;
+                        overflow: hidden;
+                        transition: transform 0.4s ease;
+                    }
+
+                    .featured-testimonial:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .featured-testimonial::before {
+                        content: '"';
+                        position: absolute;
+                        top: 10px;
+                        left: 20px;
+                        font-family: var(--font-serif);
+                        font-size: 15rem;
+                        color: var(--primary-gold);
+                        opacity: 0.04;
+                        line-height: 1;
+                        font-style: italic;
+                    }
+
+                    .featured-badge {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.6rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(135deg, var(--primary-gold), #b8860b);
+                        color: white;
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.15em;
+                        border-radius: 50px;
+                        margin-bottom: 2.5rem;
+                        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+                    }
+
+                    .featured-text {
+                        font-family: var(--font-serif);
+                        font-size: 2rem;
+                        line-height: 1.6;
+                        font-style: italic;
+                        color: var(--primary-brown);
+                        margin-bottom: 3rem;
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    .featured-author {
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    .featured-avatar {
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 3px solid white;
+                        box-shadow: 0 8px 24px rgba(93, 64, 55, 0.15);
+                    }
+
+                    .featured-avatar img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .featured-author-info h4 {
+                        font-family: var(--font-serif);
+                        font-size: 1.6rem;
+                        font-weight: 700;
+                        color: var(--primary-dark);
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .featured-stars {
+                        display: flex;
+                        gap: 0.25rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .featured-stars i {
+                        color: var(--primary-gold);
+                        font-size: 1.2rem;
+                    }
+
+                    .featured-service {
+                        font-size: 0.95rem;
+                        color: var(--text-secondary);
+                        font-weight: 500;
+                    }
+
+                    /* Right Side - Staggered Testimonial Cards */
+                    .testimonials-grid {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2.5rem;
+                    }
+
+                    .testimonial-card {
+                        background: white;
+                        padding: 3rem;
+                        border-radius: 28px;
+                        border: 1px solid rgba(232, 228, 223, 0.8);
+                        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        position: relative;
+                    }
+
+                    .testimonial-card:nth-child(even) {
+                        margin-left: 3rem;
+                        /* Staggered effect */
+                    }
+
+                    .testimonial-card:hover {
+                        transform: scale(1.02) translateY(-5px);
+                        border-color: rgba(212, 175, 55, 0.3);
+                        box-shadow: 0 20px 50px rgba(93, 64, 55, 0.08);
+                        z-index: 2;
+                    }
+
+                    .testimonial-header {
+                        display: flex;
+                        align-items: center;
+                        gap: 1.25rem;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .customer-avatar {
+                        width: 64px;
+                        height: 64px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 2px solid white;
+                        box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
+                        flex-shrink: 0;
+                    }
+
+                    .customer-avatar img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .customer-name {
+                        font-family: var(--font-serif);
+                        font-size: 1.35rem;
+                        font-weight: 600;
+                        color: var(--primary-brown);
+                        margin-bottom: 0.2rem;
+                    }
+
+                    .star-rating i {
+                        color: var(--primary-gold);
+                        font-size: 0.9rem;
+                    }
+
+                    .testimonial-text {
+                        font-size: 1.1rem;
+                        line-height: 1.8;
+                        color: var(--text-secondary);
+                        /* Text color set to brown var */
+                        margin-bottom: 1.5rem;
+                        font-weight: 500;
+                    }
+
+                    .testimonial-footer {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding-top: 1.5rem;
+                        border-top: 1px solid #f0ebe5;
+                    }
+
+                    .service-tag {
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        color: #8d6e63;
+                        padding: 0.5rem 1.2rem;
+                        background: #fdfbf7;
+                        border-radius: 12px;
+                        border: 1px solid rgba(141, 110, 99, 0.1);
+                    }
+
+                    .review-date {
+                        font-size: 0.85rem;
+                        color: #a1887f;
+                        font-weight: 500;
+                    }
+
+                    /* CTA Section */
+                    .testimonials-cta {
+                        text-align: center;
+                        padding: 5rem 3rem;
+                        background: linear-gradient(135deg, #4e342e 0%, #3e2723 100%);
+                        /* Deep Brown Gradient */
+                        border-radius: 40px;
+                        position: relative;
+                        overflow: hidden;
+                        box-shadow: 0 30px 80px rgba(62, 39, 35, 0.3);
+                        margin-top: 4rem;
+                    }
+
+                    .testimonials-cta::before {
+                        background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent 60%);
+                    }
+
+                    .cta-text {
+                        font-family: var(--font-serif);
+                        font-size: 2.5rem;
+                        color: #ffffff;
+                        margin-bottom: 2.5rem;
+                        font-weight: 500;
+                    }
+
+                    .cta-text span {
+                        color: var(--primary-gold);
+                        font-style: italic;
+                    }
+
+                    /* CTA Button */
+                    .btn-primary {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1.4rem 3.5rem;
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        font-family: var(--font-sans);
+                        text-decoration: none;
+                        color: #fff;
+                        background: linear-gradient(135deg, var(--primary-gold), #b8860b);
+                        border: none;
+                        border-radius: 50px;
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .btn-primary:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+                    }
+
+                    /* COMPLETED RESPONSIVENESS */
+
+                    /* 1440px Large Desktop */
+                    @media (min-width: 1441px) {
+                        .testimonials-container {
+                            max-width: 1400px;
+                        }
+                    }
+
+                    @media (min-width: 1024px) and (max-width: 1279px) {
+                        .testimonials-container {
+                            padding: 0 1.5rem;
+                        }
+                    }
+
+                    /* 1280px Laptop/Tablet Landscape */
+                    @media (max-width: 1380px) {
+                        .testimonials-split {
+                            gap: 4%;
+                            grid-template-columns: 45% 51%;
+                        }
+
+                        .testimonial-card {
+                            padding: 2.5rem;
+                        }
+
+                        .featured-testimonial {
+                            padding: 3rem;
+                        }
+                    }
+
+                    /* 1024px Tablet Portrait */
+                    @media (max-width: 1100px) {
+                        .testimonials-split {
+                            grid-template-columns: 1fr;
+                            gap: 4rem;
+                        }
+
+                        .featured-testimonial {
+                            position: static;
+                            text-align: center;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                        .featured-author {
+                            justify-content: center;
+                            flex-direction: column;
+                            text-align: center;
+                        }
+
+                        .featured-text {
+                            font-size: 1.75rem;
+                        }
+
+                        .testimonials-grid {
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                        .testimonial-card:nth-child(even) {
+                            margin-left: 2rem;
+                        }
+
+                        .inline-stats {
+                            gap: 3rem;
+                        }
+
+                        .inline-stat:not(:last-child)::after {
+                            display: none;
+                            /* Remove dividers on smaller screens */
+                        }
+                    }
+
+                    /* 768px Mobile Landscape */
+                    @media (max-width: 768px) {
+                        .testimonials-section {
+                            padding: 5rem 0;
+                        }
+
+                        .testimonials-container {
+                            padding: 0 1.25rem;
+                        }
+
+                        .section-header h2 {
+                            font-size: 3rem;
+                        }
+
+                        .featured-text {
+                            font-size: 1.5rem;
+                        }
+
+                        .testimonial-card:nth-child(even) {
+                            margin-left: 0;
+                            /* Align straight on mobile */
+                        }
+
+                        .inline-stats {
+                            gap: 2rem;
+                        }
+
+                        .inline-stat-value {
+                            font-size: 2.25rem;
+                        }
+
+                        .featured-avatar {
+                            width: 80px;
+                            height: 80px;
+                        }
+                    }
+
+                    /* 480px Mobile Portrait */
+                    @media (max-width: 480px) {
+                        .section-header h2 {
+                            font-size: 2.5rem;
+                        }
+
+                        .testimonials-container {
+                            padding: 0 1.5rem;
+                        }
+
+                        .featured-testimonial {
+                            padding: 2.5rem 1.5rem;
+                        }
+
+                        .testimonial-card {
+                            padding: 2rem 1.5rem;
+                        }
+
+                        .btn-primary {
+                            width: 100%;
+                            justify-content: center;
+                            padding: 1.25rem;
+                        }
+
+                        .testimonial-footer {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 0.75rem;
+                        }
+                    }
+
+                    /* Testimonials Section Body content moved to main flow */
+                </style>
+
+                <section id="testimonials" class="testimonials-section">
+                    <!-- Animated Background Elements -->
+                    <div class="bg-decoration bg-decoration-1"></div>
+                    <div class="bg-decoration bg-decoration-2"></div>
+
+                    <div class="testimonials-container">
+                        <!-- Section Header with Integrated Stats -->
+                        <div class="section-header">
+                            <h2>Cosa Dicono i Nostri Clienti</h2>
+                            <p class="section-subtitle">
+                                Oltre 500 clienti soddisfatti che hanno trasformato il loro look con noi
+                            </p>
+                            <div class="inline-stats">
+                                <div class="inline-stat">
+                                    <span class="inline-stat-value">4.9★</span>
+                                    <span class="inline-stat-label">Valutazione Media</span>
+                                </div>
+                                <div class="inline-stat">
+                                    <span class="inline-stat-value">500+</span>
+                                    <span class="inline-stat-label">Clienti Soddisfatti</span>
+                                </div>
+                                <div class="inline-stat">
+                                    <span class="inline-stat-value">98%</span>
+                                    <span class="inline-stat-label">Raccomandazioni</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Split-Screen Layout -->
+                        <div class="testimonials-split">
+                            <!-- Left: Featured Large Testimonial -->
+                            <div class="featured-testimonial">
+                                <div class="featured-badge">
+                                    <i class="fi fi-rr-star"></i>
+                                    <span>Testimonianza in Evidenza</span>
+                                </div>
+
+                                <blockquote class="featured-text">
+                                    "Esperienza fantastica! Il team di Franck Provost ha ascoltato davvero le mie
+                                    esigenze e ha
+                                    creato un colore perfetto per me. Finalmente un salone dove non ci sono sorprese,
+                                    solo
+                                    risultati concordati. Professionalità al top!"
+                                </blockquote>
+
+                                <div class="featured-author">
+                                    <div class="featured-avatar">
+                                        <img src="images/testimonial_martina.png" alt="Maria Rossi">
+                                    </div>
+                                    <div class="featured-author-info">
+                                        <h4>Maria Rossi</h4>
+                                        <div class="featured-stars">
+                                            <i class="fi fi-sr-star"></i>
+                                            <i class="fi fi-sr-star"></i>
+                                            <i class="fi fi-sr-star"></i>
+                                            <i class="fi fi-sr-star"></i>
+                                            <i class="fi fi-sr-star"></i>
+                                        </div>
+                                        <p class="featured-service">Colorazione Balayage • 2 settimane fa</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Staggered Testimonial Cards -->
+                            <div class="testimonials-grid">
+                                <!-- Card 1 -->
+                                <div class="testimonial-card">
+                                    <div class="testimonial-header">
+                                        <div class="customer-avatar">
+                                            <img src="images/testimonial_laura.png" alt="Laura Bianchi">
+                                        </div>
+                                        <div class="customer-info">
+                                            <h4 class="customer-name">Laura Bianchi</h4>
+                                            <div class="star-rating">
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "Taglio perfetto e piega impeccabile. Il personale è estremamente professionale
+                                        e
+                                        l'ambiente è elegante. Consigliatissimo!"
+                                    </p>
+                                    <div class="testimonial-footer">
+                                        <span class="service-tag">Taglio & Piega</span>
+                                        <span class="review-date">1 mese fa</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="testimonial-card">
+                                    <div class="testimonial-header">
+                                        <div class="customer-avatar">
+                                            <img src="images/testimonial_giulia.png" alt="Giulia Ferrari">
+                                        </div>
+                                        <div class="customer-info">
+                                            <h4 class="customer-name">Giulia Ferrari</h4>
+                                            <div class="star-rating">
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "Il trattamento alla cheratina ha trasformato i miei capelli. Sono morbidissimi
+                                        e luminosi.
+                                        Prodotti di qualità e risultati visibili!"
+                                    </p>
+                                    <div class="testimonial-footer">
+                                        <span class="service-tag">Trattamento Cheratina</span>
+                                        <span class="review-date">3 settimane fa</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="testimonial-card">
+                                    <div class="testimonial-header">
+                                        <div class="customer-avatar">
+                                            <img src="images/testimonial_sofia.png" alt="Sofia Colombo">
+                                        </div>
+                                        <div class="customer-info">
+                                            <h4 class="customer-name">Sofia Colombo</h4>
+                                            <div class="star-rating">
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "Ambiente elegante, personale gentilissimo e risultati eccellenti. Il mio salone
+                                        di fiducia
+                                        a Milano!"
+                                    </p>
+                                    <div class="testimonial-footer">
+                                        <span class="service-tag">Colorazione Completa</span>
+                                        <span class="review-date">2 mesi fa</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4 -->
+                                <div class="testimonial-card">
+                                    <div class="testimonial-header">
+                                        <div class="customer-avatar">
+                                            <img src="images/testimonial_alessandro.png" alt="Alessandro Ricci">
+                                        </div>
+                                        <div class="customer-info">
+                                            <h4 class="customer-name">Alessandro Ricci</h4>
+                                            <div class="star-rating">
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                                <i class="fi fi-sr-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "Servizio impeccabile dall'inizio alla fine. Finalmente un salone che capisce
+                                        cosa voglio.
+                                        Tornerò sicuramente!"
+                                    </p>
+                                    <div class="testimonial-footer">
+                                        <span class="service-tag">Taglio Uomo</span>
+                                        <span class="review-date">1 settimana fa</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="testimonials-cta">
+                            <div class="cta-content">
+                                <p class="cta-text">Vuoi essere il prossimo cliente soddisfatto?</p>
+                                <a href="tel:+390276281730" class="btn-primary">
+                                    <i class="fi fi-rr-phone-call"></i>
+                                    <span>Prenota la Tua Consulenza</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </section>
+
+                <style>
+                    /* Location Section Styles */
+                    :root {
+                        --dark-brown-primary: #3d2f2f;
+                        --dark-brown-secondary: #2a1f1f;
+                        --text-light-cream: #f5f1ed;
+                        --text-lighter-cream: #d4cfc9;
+                        --primary-gold: #d4af37;
+                        --accent-rose: #e8b4a0;
+                        --gold-glow: rgba(212, 175, 55, 0.3);
+                        --card-dark-bg: rgba(255, 255, 255, 0.08);
+                        --border-gold-subtle: rgba(212, 175, 55, 0.2);
+                        --font-serif: 'Cormorant Garamond', serif;
+                        --font-sans: 'Montserrat', sans-serif;
+                    }
+
+                    /* Removed body reset to prevent global override */
+                    /* body { ... } */
+
+                    /* Location Section - Dark Brown Creative Theme */
+                    .location-section {
+                        padding: 8rem 0;
+                        background: linear-gradient(135deg, var(--dark-brown-primary) 0%, var(--dark-brown-secondary) 100%);
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    /* Decorative Background Elements */
+                    .bg-decoration-dark {
+                        position: absolute;
+                        border-radius: 50%;
+                        opacity: 0.03;
+                        pointer-events: none;
+                    }
+
+                    .bg-decoration-dark-1 {
+                        width: 500px;
+                        height: 500px;
+                        background: radial-gradient(circle, var(--primary-gold), transparent);
+                        top: -150px;
+                        left: -150px;
+                        animation: floatDark 25s ease-in-out infinite;
+                    }
+
+                    .bg-decoration-dark-2 {
+                        width: 400px;
+                        height: 400px;
+                        background: radial-gradient(circle, var(--accent-rose), transparent);
+                        bottom: -100px;
+                        right: -100px;
+                        animation: floatDark 30s ease-in-out infinite reverse;
+                    }
+
+                    @keyframes floatDark {
+
+                        0%,
+                        100% {
+                            transform: translate(0, 0) scale(1);
+                        }
+
+                        50% {
+                            transform: translate(40px, -40px) scale(1.15);
+                        }
+                    }
+
+                    .location-container {
+                        max-width: 1400px;
+                        margin: 0 auto;
+                        padding: 0 2.5rem;
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    /* Section Header */
+                    .section-header {
+                        text-align: center;
+                        margin-bottom: 6rem;
+                    }
+
+                    .location-section .section-header h2 {
+                        font-family: var(--font-serif);
+                        font-size: clamp(2.5rem, 5vw, 4rem);
+                        font-weight: 700;
+                        color: var(--primary-gold) !important;
+                        margin-bottom: 1.5rem;
+                        letter-spacing: -0.02em;
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .section-header h2::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 120px;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--primary-gold), var(--accent-rose));
+                        border-radius: 2px;
+                    }
+
+                    .location-section .section-subtitle {
+                        font-size: 1.25rem;
+                        color: var(--primary-gold) !important;
+                        max-width: 700px;
+                        margin: 2rem auto 0;
+                        line-height: 1.7;
+                    }
+
+                    .location-description {
+                        text-align: center;
+                        max-width: 800px;
+                        margin: 3rem auto 0;
+                    }
+
+                    .location-description p {
+                        font-size: 1.125rem;
+                        color: var(--text-lighter-cream);
+                        line-height: 1.8;
+                        margin-bottom: 1rem;
+                    }
+
+                    .parking-note {
+                        font-size: 1.0625rem;
+                        color: var(--primary-gold);
+                        font-weight: 600;
+                    }
+
+                    /* Split-Screen Layout */
+                    /* Split-Screen Layout */
+                    .location-split {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 4rem;
+                        align-items: start;
+                        margin-bottom: 5rem;
+                    }
+
+                    /* Left Side - Interactive Map */
+                    .map-container {
+                        position: relative;
+                        border-radius: 24px;
+                        overflow: hidden;
+                        border: 3px solid var(--primary-gold);
+                        box-shadow: 0 0 40px var(--gold-glow), 0 24px 60px rgba(0, 0, 0, 0.4);
+                        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        background: rgba(0, 0, 0, 0.3);
+                    }
+
+                    .map-container:hover {
+                        transform: translateY(-8px);
+                        box-shadow: 0 0 60px var(--gold-glow), 0 32px 80px rgba(0, 0, 0, 0.5);
+                        border-color: var(--accent-rose);
+                    }
+
+                    .map-container iframe {
+                        display: block;
+                        width: 100%;
+                        height: 600px;
+                        border: none;
+                    }
+
+                    /* Right Side - Contact Information */
+                    .contact-cards {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.5rem;
+                    }
+
+                    .contact-card {
+                        background: var(--card-dark-bg);
+                        backdrop-filter: blur(10px);
+                        -webkit-backdrop-filter: blur(10px);
+                        padding: 2rem;
+                        border-radius: 20px;
+                        border: 1px solid var(--border-gold-subtle);
+                        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .contact-card::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 4px;
+                        height: 0;
+                        background: linear-gradient(180deg, var(--primary-gold), var(--accent-rose));
+                        transition: height 0.4s ease;
+                    }
+
+                    .contact-card:hover::before {
+                        height: 100%;
+                    }
+
+                    .contact-card:hover {
+                        transform: translateY(-4px);
+                        border-color: var(--primary-gold);
+                        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 20px var(--gold-glow);
+                    }
+
+                    .contact-header {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .contact-icon {
+                        width: 56px;
+                        height: 56px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                        border-radius: 50%;
+                        flex-shrink: 0;
+                        box-shadow: 0 4px 16px var(--gold-glow);
+                    }
+
+                    .contact-icon i {
+                        font-size: 1.5rem;
+                        color: var(--dark-brown-primary);
+                    }
+
+                    .contact-header h3 {
+                        font-family: var(--font-serif);
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                        color: var(--text-light-cream);
+                    }
+
+                    .contact-content {
+                        padding-left: 4.5rem;
+                    }
+
+                    .contact-content p,
+                    .contact-content address {
+                        font-size: 1.0625rem;
+                        line-height: 1.8;
+                        color: var(--text-lighter-cream);
+                        font-style: normal;
+                    }
+
+                    .contact-content a {
+                        color: var(--primary-gold);
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                    }
+
+                    .contact-content a:hover {
+                        color: var(--accent-rose);
+                    }
+
+                    /* Hours List */
+                    .hours-list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.75rem;
+                    }
+
+                    .hours-item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 0.5rem 0;
+                        border-bottom: 1px solid var(--border-gold-subtle);
+                    }
+
+                    .hours-item:last-child {
+                        border-bottom: none;
+                    }
+
+                    .hours-day {
+                        font-weight: 600;
+                        color: var(--text-light-cream);
+                    }
+
+                    .hours-time {
+                        color: var(--text-lighter-cream);
+                    }
+
+                    /* CTA Section */
+                    .location-cta {
+                        text-align: center;
+                        padding: 4rem 3rem;
+                        background: rgba(212, 175, 55, 0.1);
+                        border: 2px solid var(--border-gold-subtle);
+                        border-radius: 24px;
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .location-cta::before {
+                        content: '';
+                        position: absolute;
+                        top: -50%;
+                        left: -50%;
+                        width: 200%;
+                        height: 200%;
+                        background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent);
+                        animation: rotateCTA 35s linear infinite;
+                    }
+
+                    @keyframes rotateCTA {
+                        from {
+                            transform: rotate(0deg);
+                        }
+
+                        to {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    .cta-content {
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    .cta-text {
+                        font-family: var(--font-serif);
+                        font-size: 1.75rem;
+                        color: var(--text-light-cream);
+                        margin-bottom: 2.5rem;
+                        font-weight: 600;
+                    }
+
+                    /* CTA Button */
+                    .btn-primary {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.875rem;
+                        padding: 1.5rem 3.5rem;
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        font-family: var(--font-sans);
+                        text-decoration: none;
+                        color: var(--dark-brown-primary);
+                        background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-rose) 100%);
+                        border: none;
+                        border-radius: 50px;
+                        cursor: pointer;
+                        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .btn-primary::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                        transition: left 0.6s;
+                    }
+
+                    .btn-primary:hover::before {
+                        left: 100%;
+                    }
+
+                    .btn-primary:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 16px 40px rgba(212, 175, 55, 0.5);
+                    }
+
+                    .btn-primary i {
+                        font-size: 1.5rem;
+                    }
+
+                    .urgency-text {
+                        margin-top: 1.5rem;
+                        font-size: 1.0625rem;
+                        color: var(--primary-gold);
+                        font-weight: 600;
+                    }
+
+                    /* Responsive Design */
+                    /* 1440px Large Desktop */
+                    @media (min-width: 1441px) {
+                        .location-container {
+                            max-width: 1400px;
+                        }
+                    }
+
+                    /* 1280px Laptop Landscape */
+                    @media (min-width: 1025px) and (max-width: 1440px) {
+                        .location-container {
+                            padding: 0 2rem;
+                        }
+
+                        .location-split {
+                            gap: 3rem;
+                        }
+
+                        .map-container iframe {
+                            height: 500px;
+                        }
+                    }
+
+                    /* 1024px Tablet/Laptop Small */
+                    @media (max-width: 1024px) {
+                        .location-split {
+                            grid-template-columns: 1fr;
+                            gap: 3rem;
+                        }
+
+                        .map-container {
+                            order: 2;
+                            /* Map below contact info on mobile if preferred, or keep as is */
+                        }
+
+                        .map-container iframe {
+                            height: 450px;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .location-section {
+                            padding: 5rem 0;
+                        }
+
+                        .location-container {
+                            padding: 0 1.25rem;
+                        }
+
+                        .section-header {
+                            margin-bottom: 4rem;
+                        }
+
+                        .map-container iframe {
+                            height: 350px;
+                        }
+
+                        .contact-card {
+                            padding: 1.5rem;
+                        }
+
+                        .contact-content {
+                            padding-left: 0;
+                            margin-top: 1rem;
+                        }
+
+                        .contact-header {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+
+                        .location-cta {
+                            padding: 3rem 2rem;
+                        }
+
+                        .cta-text {
+                            font-size: 1.5rem;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .btn-primary {
+                            width: 100%;
+                            justify-content: center;
+                        }
+
+                        .hours-item {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 0.25rem;
+                        }
+                    }
+
+                    /* Location Section Body content moved to main flow */
+                </style>
+
+                <section id="location" class="location-section">
+                    <!-- Decorative Background Elements -->
+                    <div class="bg-decoration-dark bg-decoration-dark-1"></div>
+                    <div class="bg-decoration-dark bg-decoration-dark-2"></div>
+
+                    <div class="location-container">
+                        <!-- Section Header -->
+                        <div class="section-header">
+                            <h2>Dove Trovarci</h2>
+                            <p class="section-subtitle">
+                                Visita il nostro salone nel cuore di Milano per un'esperienza di bellezza
+                                indimenticabile
+                            </p>
+                            <div class="location-description">
+                                <p>
+                                    Facile da raggiungere, in un ambiente tranquillo e accogliente dove puoi prenderti
+                                    del tempo per
+                                    te stesso.
+                                </p>
+                                <p class="parking-note">
+                                    Parcheggio disponibile nelle vicinanze.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Split-Screen Layout -->
+                        <div class="location-split">
+                            <!-- Left: Interactive Map -->
+                            <div class="map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.8283524536676!2d9.198626776892384!3d45.47419353347108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c6d3c0c0c0c1%3A0x1234567890abcdef!2sCorso%20Venezia%2C%2045%2C%2020121%20Milano%20MI%2C%20Italy!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                    title="Franck Provost Milano Location">
+                                </iframe>
+                            </div>
+
+                            <!-- Right: Contact Information Cards -->
+                            <div class="contact-cards">
+                                <!-- Address Card -->
+                                <div class="contact-card">
+                                    <div class="contact-header">
+                                        <div class="contact-icon">
+                                            <i class="fi fi-rr-marker"></i>
+                                        </div>
+                                        <h3>Indirizzo</h3>
+                                    </div>
+                                    <div class="contact-content">
+                                        <address>
+                                            Corso Venezia, 45<br>
+                                            20121 Milano MI<br>
+                                            Italia
+                                        </address>
+                                    </div>
+                                </div>
+
+                                <!-- Phone Card -->
+                                <div class="contact-card">
+                                    <div class="contact-header">
+                                        <div class="contact-icon">
+                                            <i class="fi fi-rr-phone-call"></i>
+                                        </div>
+                                        <h3>Telefono</h3>
+                                    </div>
+                                    <div class="contact-content">
+                                        <p>
+                                            <a href="tel:+390276281730">+39 02 7628 1730</a>
+                                        </p>
+                                        <p style="margin-top: 0.5rem; font-size: 0.9375rem;">
+                                            Chiama per prenotare il tuo appuntamento
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Hours Card -->
+                                <div class="contact-card">
+                                    <div class="contact-header">
+                                        <div class="contact-icon">
+                                            <i class="fi fi-rr-clock"></i>
+                                        </div>
+                                        <h3>Orari di Apertura</h3>
+                                    </div>
+                                    <div class="contact-content">
+                                        <div class="hours-list">
+                                            <div class="hours-item">
+                                                <span class="hours-day">Lunedì - Venerdì</span>
+                                                <span class="hours-time">9:00 - 19:00</span>
+                                            </div>
+                                            <div class="hours-item">
+                                                <span class="hours-day">Sabato</span>
+                                                <span class="hours-time">9:00 - 18:00</span>
+                                            </div>
+                                            <div class="hours-item">
+                                                <span class="hours-day">Domenica</span>
+                                                <span class="hours-time">Chiuso</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="location-cta">
+                            <div class="cta-content">
+                                <p class="cta-text">Pronto a trasformare il tuo look?</p>
+                                <a href="tel:+390276281730" class="btn-primary">
+                                    <i class="fi fi-rr-phone-call"></i>
+                                    <span>Chiama ora e prenota la tua consulenza</span>
+                                </a>
+                                <p class="urgency-text">Disponibilità limitata — Prenota il tuo appuntamento oggi</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </section>
+
+                <style>
+                    /* Footer Styles */
+                    :root {
+                        --font-serif: 'Cormorant Garamond', serif;
+                        --font-sans: 'Montserrat', sans-serif;
+                        --primary-gold: #d4af37;
+                        --accent-rose: #e8b4a0;
+                    }
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+
+                    /* Removed body reset to prevent global override */
+                    /* body { ... } */
+
+                    /* Footer Section */
+                    .footer-section {
+                        padding: 5rem 2rem 2rem;
+                        background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+                        color: #f5f1ed;
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .footer-section::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--primary-gold), var(--accent-rose));
+                    }
+
+                    .footer-container {
+                        max-width: 1400px;
+                        margin: 0 auto;
+                    }
+
+                    .footer-grid {
+                        display: grid;
+                        grid-template-columns: 2fr 1fr 1.5fr;
+                        gap: 4rem;
+                        margin-bottom: 4rem;
+                    }
+
+                    /* All columns left-aligned */
+                    .footer-column {
+                        text-align: left;
+                    }
+
+                    .footer-column h3 {
+                        font-family: var(--font-serif);
+                        font-size: 1.25rem;
+                        font-weight: 600;
+                        color: var(--primary-gold);
+                        margin-bottom: 1.5rem;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        text-align: left;
+                    }
+
+                    /* Brand Column */
+                    .footer-brand {
+                        text-align: left;
+                    }
+
+                    .footer-brand h2 {
+                        font-family: var(--font-serif);
+                        font-size: 2rem;
+                        color: var(--primary-gold);
+                        margin-bottom: 1rem;
+                        font-weight: 700;
+                        text-align: left;
+                    }
+
+                    .footer-tagline {
+                        font-style: italic;
+                        color: #d4cfc9;
+                        margin-bottom: 1.5rem;
+                        font-size: 1.0625rem;
+                        text-align: left;
+                    }
+
+                    .footer-description {
+                        color: #d4cfc9;
+                        line-height: 1.7;
+                        margin-bottom: 2rem;
+                        font-size: 0.9375rem;
+                        text-align: left;
+                    }
+
+                    .social-links {
+                        display: flex;
+                        gap: 1rem;
+                        margin-top: 2rem;
+                        justify-content: flex-start;
+                    }
+
+                    .social-links a {
+                        width: 44px;
+                        height: 44px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(135deg, var(--primary-gold), var(--accent-rose));
+                        border-radius: 50%;
+                        transition: all 0.3s ease;
+                        color: #1a1a1a;
+                        text-decoration: none;
+                    }
+
+                    .social-links a i {
+                        font-size: 1.25rem;
+                    }
+
+                    .social-links a:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+                    }
+
+                    /* Quick Links */
+                    .footer-links {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        text-align: left;
+                    }
+
+                    .footer-links li {
+                        margin-bottom: 0.875rem;
+                        text-align: left;
+                    }
+
+                    .footer-links a {
+                        color: #d4cfc9;
+                        text-decoration: none;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        transition: all 0.3s ease;
+                        font-size: 0.9375rem;
+                        position: relative;
+                    }
+
+                    .footer-links a::before {
+                        content: '→';
+                        color: var(--primary-gold);
+                        opacity: 0;
+                        transform: translateX(-10px);
+                        transition: all 0.3s ease;
+                    }
+
+                    .footer-links a:hover {
+                        color: var(--primary-gold);
+                        transform: translateX(5px);
+                    }
+
+                    .footer-links a:hover::before {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+
+                    /* Contact Info */
+                    .footer-contact {
+                        text-align: left;
+                    }
+
+                    .footer-contact p {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 0.75rem;
+                        margin-bottom: 1rem;
+                        color: #d4cfc9;
+                        font-size: 0.9375rem;
+                        line-height: 1.7;
+                        text-align: left;
+                    }
+
+                    .footer-contact i {
+                        color: var(--primary-gold);
+                        font-size: 1.125rem;
+                        margin-top: 0.125rem;
+                        flex-shrink: 0;
+                    }
+
+                    .footer-contact a {
+                        color: var(--primary-gold);
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    }
+
+                    .footer-contact a:hover {
+                        color: var(--accent-rose);
+                    }
+
+                    /* Footer Bottom */
+                    .footer-bottom {
+                        border-top: 1px solid rgba(212, 175, 55, 0.2);
+                        padding-top: 2rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .footer-bottom p {
+                        color: #d4cfc9;
+                        font-size: 0.875rem;
+                    }
+
+                    .footer-legal {
+                        display: flex;
+                        gap: 1rem;
+                        align-items: center;
+                    }
+
+                    .footer-legal a {
+                        color: #d4cfc9;
+                        text-decoration: none;
+                        font-size: 0.875rem;
+                        transition: color 0.3s ease;
+                    }
+
+                    .footer-legal a:hover {
+                        color: var(--primary-gold);
+                    }
+
+                    .footer-legal span {
+                        color: rgba(212, 175, 55, 0.4);
+                    }
+
+                    /* Responsive */
+                    @media (max-width: 1023px) {
+                        .footer-grid {
+                            grid-template-columns: 1fr 1fr;
+                            gap: 3rem;
+                        }
+
+                        .footer-brand {
+                            grid-column: 1 / -1;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .footer-grid {
+                            grid-template-columns: 1fr;
+                            gap: 2.5rem;
+                        }
+
+                        .footer-bottom {
+                            flex-direction: column;
+                            gap: 1.5rem;
+                            text-align: center;
+                        }
+                    }
+
+                    /* Footer Body content moved to main flow */
+                </style>
+
+                <footer class="footer-section">
+                    <div class="footer-container">
+                        <div class="footer-grid">
+                            <!-- Column 1: Brand & Social -->
+                            <div class="footer-column footer-brand">
+                                <h2>Franck Provost Milano</h2>
+                                <p class="footer-tagline">L'eccellenza francese nel cuore di Milano</p>
+                                <p class="footer-description">
+                                    Da oltre 60 anni, Franck Provost rappresenta l'eccellenza francese nel settore
+                                    dell'hairstyling.
+                                    Il nostro salone a Milano combina tradizione e innovazione per offrirti
+                                    un'esperienza di
+                                    bellezza unica.
+                                </p>
+                                <!-- Social links removed as per request -->
+                            </div>
+
+                            <!-- Column 2: Quick Links -->
+                            <div class="footer-column">
+                                <h3>Link Rapidi</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#services">Servizi</a></li>
+                                    <li><a href="#about">Chi Siamo</a></li>
+                                    <li><a href="#gallery">Galleria</a></li>
+                                    <li><a href="#location">Contatti</a></li>
+                                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Column 3: Contact Info -->
+                            <div class="footer-column">
+                                <h3>Contatti</h3>
+                                <div class="footer-contact">
+                                    <p>
+                                        <i class="fi fi-rr-phone-call"></i>
+                                        <a href="tel:+390276281730">+39 02 7628 1730</a>
+                                    </p>
+                                    <p>
+                                        <i class="fi fi-rr-envelope"></i>
+                                        <a href="mailto:info@franckprovost-milano.it">info@franckprovost-milano.it</a>
+                                    </p>
+                                    <p>
+                                        <i class="fi fi-rr-marker"></i>
+                                        <span>Corso Venezia, 45<br>20121 Milano, Italia</span>
+                                    </p>
+                                    <p>
+                                        <i class="fi fi-rr-clock"></i>
+                                        <span>Lun-Sab: 9:00-19:00</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Bottom -->
+                        <div class="footer-bottom">
+                            <p>&copy; 2025 Franck Provost Milano. Tutti i diritti riservati.</p>
+                            <div class="footer-legal">
+                                <a href="privacy-policy.html">Privacy Policy</a>
+                                <span>•</span>
+                                <a href="terms-conditions.html">Termini e Condizioni</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </body>
+
+</html>

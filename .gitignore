@@ -1,0 +1,31 @@
+# Vercel deployment files
+.vercel
+
+# Node modules
+node_modules/
+
+# Cloudflare tunnel
+cloudflared-windows-amd64.exe
+
+# Batch files and scripts (exclude from repo)
+*.bat
+*.ps1
+
+# Other HTML files (keeping only complete_landing_page_backup.html)
+HIgh-Conversion Landing Page.html
+complete_landing_page.html
+navbar.html
+navbar.css
+terms-conditions.html
+privacy-policy.html
+
+# Python scripts
+*.py
+
+# Temporary files
+.DS_Store
+Thumbs.db
+
+# Keep these files
+!README.md
+!VERCEL_DEPLOYMENT_GUIDE.md

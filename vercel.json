@@ -1,0 +1,23 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/complete_landing_page_backup.html"
+        },
+        {
+            "source": "/index.html",
+            "destination": "/complete_landing_page_backup.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=3600, must-revalidate"
+                }
+            ]
+        }
+    ]
+}
