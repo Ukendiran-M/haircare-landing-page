@@ -24,7 +24,6 @@
         }
 
         :root {
-            /* Premium Color Palette */
             --primary-dark: #0f0f0f;
             --primary-gold: #d4af37;
             --accent-rose: #e8b4a0;
@@ -35,11 +34,9 @@
             --border-subtle: #e8e4df;
             --shadow-gold: rgba(212, 175, 55, 0.3);
 
-            /* Typography */
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-            /* Gradients */
             --gradient-gold: linear-gradient(135deg, #d4af37, #e8b4a0);
         }
 
@@ -92,51 +89,27 @@
 
         /* Logo/Brand */
         .navbar-brand {
-            font-family: var(--font-serif);
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
             white-space: nowrap;
             z-index: 1002;
+            flex-shrink: 0;
         }
 
-        .navbar-brand::before {
-            content: '✂';
-            font-size: 1.5rem;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: rotate 3s ease-in-out infinite;
+        .navbar-brand img {
+            display: block;
+            height: 56px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes rotate {
-
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-
-            50% {
-                transform: rotate(15deg);
-            }
-        }
-
-        .navbar-brand:hover {
+        .navbar-brand:hover img {
             transform: translateY(-2px);
-        }
-
-        .navbar-brand span {
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         /* Desktop Wrap */
@@ -172,7 +145,6 @@
             transition: color 0.3s ease;
             display: inline-block;
             white-space: nowrap;
-            /* Prevent "Perché Noi" wrap */
         }
 
         /* Animated Underline Effect */
@@ -294,7 +266,6 @@
 
             .navbar-collapse {
                 display: contents;
-                /* Allows children to participate in Grid */
             }
 
             .navbar-menu {
@@ -336,6 +307,11 @@
             .navbar-cta {
                 padding: 0.875rem 1.5rem;
                 font-size: 0.875rem;
+            }
+
+            .navbar-brand img {
+                height: 50px;
+                max-width: 200px;
             }
         }
 
@@ -400,6 +376,10 @@
                 animation-delay: 0.3s;
             }
 
+            .navbar-menu li:nth-child(6) {
+                animation-delay: 0.35s;
+            }
+
             @keyframes slideInRight {
                 from {
                     opacity: 0;
@@ -422,7 +402,7 @@
                 margin-left: 0;
                 margin-top: 2rem;
                 width: 100%;
-                animation: slideInRight 0.4s ease-out 0.35s backwards;
+                animation: slideInRight 0.4s ease-out 0.4s backwards;
             }
 
             .navbar-cta {
@@ -444,6 +424,11 @@
                 opacity: 1;
                 visibility: visible;
             }
+
+            .navbar-brand img {
+                height: 48px;
+                max-width: 190px;
+            }
         }
 
         /* Mobile: 767px and below */
@@ -452,8 +437,9 @@
                 padding: 1rem 1.25rem;
             }
 
-            .navbar-brand {
-                font-size: 1.5rem;
+            .navbar-brand img {
+                height: 42px;
+                max-width: 160px;
             }
         }
 
@@ -468,8 +454,8 @@
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
             <!-- Logo/Brand -->
-            <a href="#" class="navbar-brand">
-                <span>Franck Provost</span>
+            <a href="#" class="navbar-brand" aria-label="Hairly Home">
+                <img src="/hairly-logo.png" alt="Hairly Logo">
             </a>
 
             <!-- Collapsible Wrapper for Links + CTA -->
@@ -481,6 +467,7 @@
                     <li><a href="#services-images" class="nav-link">Servizi</a></li>
                     <li><a href="#testimonials" class="nav-link">Recensioni</a></li>
                     <li><a href="#location" class="nav-link">Contatti</a></li>
+                    <li><a href="prenota.html" class="nav-link">Prenota</a></li>
                 </ul>
 
                 <!-- CTA Button -->
@@ -509,7 +496,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.getElementById('navbar');
             const navbarToggle = document.getElementById('navbarToggle');
-            const navbarCollapse = document.getElementById('navbarCollapse'); // New wrapper
+            const navbarCollapse = document.getElementById('navbarCollapse');
             const navbarOverlay = document.getElementById('navbarOverlay');
             const navLinks = document.querySelectorAll('.nav-link');
 
@@ -525,7 +512,7 @@
             // Mobile Menu Toggle
             function toggleMenu() {
                 navbarToggle.classList.toggle('active');
-                navbarCollapse.classList.toggle('active'); // Toggle wrapper
+                navbarCollapse.classList.toggle('active');
                 navbarOverlay.classList.toggle('active');
                 document.body.classList.toggle('menu-open');
             }
@@ -536,21 +523,29 @@
             // Smooth Scroll & Close Menu
             navLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    // Active State
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // Scroll
                     const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        if (navbarCollapse.classList.contains('active')) toggleMenu();
 
-                        const navbarHeight = navbar.offsetHeight;
-                        const targetPosition = targetSection.offsetTop - navbarHeight;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    // Only prevent default for section anchors
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault();
+
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            if (navbarCollapse.classList.contains('active')) toggleMenu();
+
+                            const navbarHeight = navbar.offsetHeight;
+                            const targetPosition = targetSection.offsetTop - navbarHeight;
+
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    } else {
+                        if (navbarCollapse.classList.contains('active')) toggleMenu();
                     }
                 });
             });
